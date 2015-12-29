@@ -1,4 +1,4 @@
-#TextCirle
+#Text Circle
 
 Built in the course "Web Application Development with JavaScript and MongoDB" on Coursera.
 <br>
