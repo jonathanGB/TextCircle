@@ -3,14 +3,16 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <a class="navbar-brand">TextCircle</a>
-      <p class="navbar-text navbar-right"> {{> loginButtons align="right"}} </p>
-    </div>
-  </nav>
 
+  {{> navbar}}
   <main class="container top-margin">
+
+    <div class="row">
+      <header class="col-lg-12">
+        {{> docMeta}}
+      </header>
+    </div>
+
     <div class="row">
       <header class="col-lg-12">
         {{> editingUsers}}
@@ -27,6 +29,45 @@
 
   </main>
 </body>
+
+
+<template name="docMeta">
+  {{#with document}}
+    <span class="h1">{{> editableText collection="documents" field="title"}}</span>
+    {{#if canEdit}}
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" class="js-tog-private" checked="{{isPrivate}}"> private
+      </label>
+    </div>
+    {{/if}}
+  {{/with}}
+</template>
+
+<template name="navbar">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <a class="navbar-brand">TextCircle</a>
+
+      <ul class="nav navbar-nav">
+        {{#if currentUser}}
+          <li> <a class="js-add-doc" role="button"> <span class="glyphicon glyphicon-plus"></span> new document</a> </li>
+        {{/if}}
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">documents <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {{#each documents}}
+              <li><a href="#" class="js-load-doc">{{title}}</a></li>
+            {{/each}}
+          </ul>
+        </li>
+      </ul>
+
+      <p class="navbar-text navbar-right"> {{> loginButtons align="right"}} </p>
+    </div>
+  </nav>
+</template>
 
 <template name="editingUsers">
     <b>Editors:</b>
